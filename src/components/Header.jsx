@@ -3,7 +3,7 @@ function Header() {
         <nav className="pink darken-2">
             <div className="nav-wrapper">
                 <span className="logoName">
-                    <a href="" Name="brand-logo">_React Fortnite shop_</a>
+                    <a href="" Name="brand-logo">React Fortnite shop</a>
                 </span>
                 
             </div>
