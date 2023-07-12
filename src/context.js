@@ -16,6 +16,7 @@ const initialState = {
     isBasketShow: false,
 }
 
+
 // создаём компонент Context, который будет передавать во всем свои дочерние элементы состояние initialState. 
 export const ContextProvider = ({children}) => {
 
