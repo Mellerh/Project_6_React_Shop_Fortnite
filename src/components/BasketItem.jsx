@@ -1,20 +1,26 @@
 import './heplers/BasketList.css';
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 
+import {ShopContext} from '../context';
 
 
 
 function BasketItem(props) {
     // деструктурируем props на отдельный переменные
-    const {id, name, price} = props.item;
-    const { getTotalPrice, removeFromBasket, decreaseTotalPrice } = props;
+    const {id, name, price} = props.item || {};
+    const { getTotalPrice, decreaseTotalPrice } = props || {};
     
+    
+    // достаём функцию из компонента Context
+    const { removeFromBasket = Function.prototype } = useContext(ShopContext)
+
 
     // создаём state с изначальным количеством товаров в корзине
     const [itemsQuantity, setItemsQuantity] = useState(getLocalQuantity());
 
     // создаём state для подсчёта общей стоиомсти товаров
     const [itemsPrice, setItemsPrice] = useState(0)
+
 
 
     // функция берёт количество товаров из localStorage и вызывается в состояние itemsQuantity
@@ -55,32 +61,35 @@ function BasketItem(props) {
 
 
     return (
-        <li class="collection-item">
+        <li className="collection-item">
             {name}
 
             <span className='item-separator' 
                 onClick={()=> {
                     decreaseQuantity()
-            }}><i class="material-icons basket-quan">remove</i></span>
+            }}><i className="material-icons basket-quan">remove</i></span>
 
-            x{itemsQuantity} 
+            {price} x {itemsQuantity} 
 
             <span className='item-separator' 
                 onClick={()=> {
                         increaseQuantity()}}>
-                <i class="material-icons basket-quan">add</i>
+                <i className="material-icons basket-quan">add</i>
             </span>
 
-            = {price} руб. 
+            = {price * itemsQuantity} руб. 
 
-            <span class="secondary-content" onClick={()=>{
+
+            {/* крестик для удаления товара из корзины */}
+            <span className="secondary-content" onClick={()=>{
                 removeFromBasket(id);
                 decreaseTotalPrice(price * itemsQuantity);
                 localStorage.setItem(id, 1);
 
+
             }}>
 
-                <i class="material-icons">clear</i>
+                <i className="material-icons">clear</i>
             </span>
         </li>
     )

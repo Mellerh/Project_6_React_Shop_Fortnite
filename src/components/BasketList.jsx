@@ -1,13 +1,18 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
+import {ShopContext} from '../context';
+
 import BasketItem from './BasketItem';
 import './heplers/BasketList.css';
 
 
 
-function BasketList(props = []) {
+function BasketList() {
 
     // вытаскиваем функцию удаления товара из корзины
-    const { removeFromBasket } = props;
+    const { 
+        orderItems = [], 
+        showBasket = Function.prototype 
+    } = useContext(ShopContext);
     
 
     // создаём state для отображения общей стоиомсти всех товаров. стоимость будет получать через функцию у BasketItem
@@ -26,13 +31,13 @@ function BasketList(props = []) {
 
 
     return(
-        <ul class="collection basket-item">
+        <ul className="collection basket-item">
 
             {/* Корзина товара и крестик с возможностью закрытия корзины */}
-            <li href="#!" class="collection-item active basket-items-name">Корзина товаров: 
+            <li href="#!" className="collection-item active basket-items-name">Корзина товаров: 
 
-                <span class="secondary-content close-basket" onClick={props.showBasket}>
-                    <i class="material-icons">clear</i>
+                <span className="secondary-content close-basket" onClick={showBasket}>
+                    <i className="material-icons">clear</i>
                 </span>
                 
             </li>
@@ -40,31 +45,30 @@ function BasketList(props = []) {
 
             {/* если корзина не пустая, то вызываем BasketItem и отрисоываем все добавленные товары*/}
             {   
-                props.orderItems.length 
-                ? 
-                    (props.orderItems.map(item => (
+                orderItems.length ? 
+                    (orderItems.map(item => (
                         <BasketItem 
-                            key={item.id} 
                             item={item}
                             getTotalPrice={getTotalPrice}
-                            removeFromBasket={removeFromBasket}
                             decreaseTotalPrice={decreaseTotalPrice}
+
+                            key={item.id} 
                         />
                     )))
                 :
-                    <li class="collection-item">Корзина пуста.</li>
+                <li className="collection-item">Корзина пуста.</li>
             }
             
             
             {/* раздел с общей стоимостью */}
-            <li href="#!" class="collection-item active basket-items-name">
+            <li href="#!" className="collection-item active basket-items-name">
                 Общая стоиомсть: {totalPrice} руб.
             </li>
             
             {/* кнопка оформления  */}
-            <li href="#!" class="collection-item basket-items-name">
-                <button class="btn waves-effect waves-light" type="submit" name="action">Оформить
-                    <i class="material-icons right">send</i>
+            <li href="#!" className="collection-item basket-items-name">
+                <button className="btn waves-effect waves-light" type="submit" name="action">Оформить
+                    <i className="material-icons right">send</i>
                 </button>
             </li>
 
