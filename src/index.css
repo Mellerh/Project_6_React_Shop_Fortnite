@@ -138,7 +138,7 @@ code {
   /* медиа запрос срабатывает от величины экрана в 610px */
   @media (min-width: 610px) {
     .card {
-      min-height: 500px;
+      min-height: 550px;
       /* height: */
     }
 
