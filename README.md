@@ -13,4 +13,4 @@ https://mellerh.github.io/Project_6_React_Shop_Fortnite/
 
 В качестве базы данных с товарми используется API - https://fortniteapi.io/
 
-Сайт адаптивен.
+Сайт адаптивен..
